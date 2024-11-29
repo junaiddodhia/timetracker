@@ -1,0 +1,732 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Timetracker for Assembly Employees</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="14dd17ff-5988-80e4-98ce-edb59e62acd4" class="page sans"><header><img class="page-cover-image" src="Timetracker%20for%20Assembly%20Employees%2014dd17ff598880e498ceedb59e62acd4/Enhanced_Material_in_Motion.png" style="object-position:center 50%"/><h1 class="page-title">Timetracker for Assembly Employees</h1><p class="page-description"></p></header><div class="page-body"><hr id="14dd17ff-5988-808f-a3a7-fae60b1954ae"/><h1 id="14dd17ff-5988-80f2-b61a-f631e56573b1" class=""><strong>Overview</strong></h1><p id="14dd17ff-5988-80a2-9d69-e86f67456753" class="">Timetracker was developed as an internal application to streamline the clock-in and clock-out process for assembly line employees. The tool ensured accurate payroll calculations and offered managers an intuitive dashboard to oversee employee hours and payroll data. This effort replaced manual methods, improving efficiency and satisfaction for employees and management.</p><hr id="14dd17ff-5988-8069-99e0-f26019c93fa8"/><h1 id="14dd17ff-5988-80e2-828e-e05e29ab2fe3" class=""><strong>Project Highlights</strong></h1><h2 id="14dd17ff-5988-8023-a456-f7fa40e2afef" class=""><strong>Impact</strong></h2><ul id="14dd17ff-5988-8014-a379-efebf937bf8e" class="bulleted-list"><li style="list-style-type:disc">Reduced clock-in/out time by approximately 30%.</li></ul><ul id="14dd17ff-5988-80d5-a189-d900cdf9b2d6" class="bulleted-list"><li style="list-style-type:disc">Improved payroll generation efficiency by an estimated 25%.</li></ul><ul id="14dd17ff-5988-80ea-bb27-f6968361a0b5" class="bulleted-list"><li style="list-style-type:disc">Enhanced overall employee satisfaction through simplified workflows.</li></ul><h2 id="14dd17ff-5988-80a0-965a-f1351b879dba" class=""><strong>Tech Stack</strong></h2><ul id="14dd17ff-5988-80b0-8c6e-c4175f15282d" class="bulleted-list"><li style="list-style-type:disc"><strong>Frontend:</strong> TypeScript, AngularJS, Material UI</li></ul><ul id="14dd17ff-5988-8001-b3f2-c9cb86e5b04e" class="bulleted-list"><li style="list-style-type:disc"><strong>Backend:</strong> Python Flask</li></ul><ul id="14dd17ff-5988-8080-bd91-fc982ec58faf" class="bulleted-list"><li style="list-style-type:disc"><strong>Database:</strong> SQL Server</li></ul><h2 id="14dd17ff-5988-80f3-ac10-f9e9e9faf325" class=""><strong>Key Features</strong></h2><ul id="14dd17ff-5988-80fd-8bb1-ece23a67a759" class="bulleted-list"><li style="list-style-type:disc">Badge scanning for quick and secure clock-in/out.</li></ul><ul id="14dd17ff-5988-803e-8fba-e41b6e3a3529" class="bulleted-list"><li style="list-style-type:disc">Manager dashboard to monitor hours, manage payroll, and oversee workflows.</li></ul><ul id="14dd17ff-5988-80df-bf57-f5746cd33652" class="bulleted-list"><li style="list-style-type:disc">Secure API integration to ensure protected internal routes.</li></ul><hr id="14dd17ff-5988-8058-ad18-c5354b3260a6"/><h1 id="14dd17ff-5988-8024-ad00-df373a85c52f" class=""><strong>Problem Statement</strong></h1><p id="14dd17ff-5988-800b-9d73-f0b8e1913bd0" class="">Assembly line employees faced challenges with manual clock-in and clock-out systems, including:</p><ol type="1" id="14dd17ff-5988-800f-8738-eb614dcdf200" class="numbered-list" start="1"><li>Inefficient time tracking, leading to delays and inaccuracies in payroll.</li></ol><ol type="1" id="14dd17ff-5988-80ad-8214-cf4595ba8de3" class="numbered-list" start="2"><li>Lack of a centralized system for managers to oversee employee hours and approve payments.</li></ol><p id="14dd17ff-5988-8042-8a2b-fde566a28592" class="">Timetracker aimed to address these issues by automating the process with a user-friendly interface.</p><hr id="14dd17ff-5988-8073-bb93-d063cbfc76d0"/><h1 id="14dd17ff-5988-8071-96cf-e127d8dac8e7" class="">Solution Overview</h1><p id="14dd17ff-5988-807d-be48-ed35399d6216" class="">The solution provided a streamlined badge-based clock-in system integrated with a secure API. Key features included:</p><ol type="1" id="14dd17ff-5988-80b6-953a-deacc181912c" class="numbered-list" start="1"><li><strong>Automated Time Tracking:</strong> Employees could simply scan their badges to clock in or out, reducing time and errors.</li></ol><ol type="1" id="14dd17ff-5988-8043-8133-c0d14b94dc90" class="numbered-list" start="2"><li><strong>Managerial Tools:</strong> A dashboard offered managers real-time updates on employee hours, payroll status, and insights to improve workflow.</li></ol><ol type="1" id="14dd17ff-5988-8015-843a-f6fc67409d5e" class="numbered-list" start="3"><li><strong>Iterative Design Process:</strong> Regular feedback from non-technical users shaped the interface to be intuitive and accessible.</li></ol><hr id="14dd17ff-5988-809b-88f9-c0c0b29c5f23"/><p id="14dd17ff-5988-808d-831c-e7245720b4ad" class=""><strong>Table of contents</strong></p><nav id="14dd17ff-5988-80f5-bc01-ca226bf38de5" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80f2-b61a-f631e56573b1"><strong>Overview</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80e2-828e-e05e29ab2fe3"><strong>Project Highlights</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8023-a456-f7fa40e2afef"><strong>Impact</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80a0-965a-f1351b879dba"><strong>Tech Stack</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80f3-ac10-f9e9e9faf325"><strong>Key Features</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-8024-ad00-df373a85c52f"><strong>Problem Statement</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-8071-96cf-e127d8dac8e7">Solution Overview</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-8085-a3a1-cd1e2f9c1e58"><strong>System Architecture</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8061-bbec-cbfdcc0745fe"><strong>Backend</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80ca-8aea-c619c135a3cf"><strong>Frontend</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80a2-bfca-d6f2a20bd174"><strong>Database</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-800c-bcc2-fcaa4efccaca"><strong>Integration &amp; Middleware</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80fc-832c-c9eff923b902"><strong>Deployment</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8042-865c-dbbaeedf03b4"><strong>System Workflow</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-805a-a390-df864f23d510">API Documentation</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-802e-bf74-d2796ecca557"><strong>Endpoints Overview</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8077-bb2e-fe25726accc0"><strong>Authentication</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80e7-84db-e477f4f27781"><strong>1. POST /api/clock-in</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80bc-9f90-e037df9f9f9a"><strong>2. GET /api/employee</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80f9-8dd4-f149aac86000"><strong>3. GET /api/employees</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80ed-891c-fd14ed10e648"><strong>4. POST /api/payroll</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-804b-bc81-f84333390088"><strong>5. PUT /api/update</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-8095-8607-fa22abb69393">User Documentation </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80f8-8572-cd4bf7099b58"><strong>For Employees</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-803f-adb2-fe73bb730b64"><strong>Steps to Clock In/Out</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80ce-ac9c-e799c607daf8"><strong>For Managers</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-806e-b405-e75bb5f4b45d"><strong>Accessing the Dashboard</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-807a-b485-ea8ff35d05ab"><strong>Managing Payroll</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-8016-b8a2-c28cce3af2a3"><strong>Editing Employee Details</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8001-acc3-ec6e8d86ae3e"><strong>Common Scenarios</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8023-9391-c7a056330a2e"><strong>Frequently Asked Questions (FAQ)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80a4-8464-eee2ecabcfc9">Maintenance Guide</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80fe-9cc4-fb362d7438ca"><strong>1. Regular Maintenance Tasks</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-8065-a2ba-e29447f6c94a"><strong>1.1 Database Maintenance</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-807a-a439-c12b04e4e567"><strong>1.2 Frontend Maintenance</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-803e-8d5a-fb65e8286f44"><strong>1.3 Backend Maintenance</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-800a-8fe0-cd1a2f30a573"><strong>1.4 CI/CD Pipeline</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8076-bf13-f42828fb20a1"><strong>2. System Monitoring</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-80db-b8dc-d5266cec744b"><strong>2.1 Logs</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-8093-aa18-f16351b52bcd"><strong>2.2 Uptime Monitoring</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-8008-a9ea-c498ae3d7cb7"><strong>3. Troubleshooting</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-8073-a501-c56b511cca48"><strong>3.1 Common Issues</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-80c4-aeb4-d0d93f582822"><strong>3.2 Escalation Process</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80bc-ab67-ed545e0dadc2"><strong>4. Security Best Practices</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-801c-af57-dddd9013b559"><strong>5. Update &amp; Upgrade Procedures</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-80b7-b2da-c43c6bf3fb54"><strong>5.1 Frontend Upgrades</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-8085-9daf-cbb62814d768"><strong>5.2 Backend Updates</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14dd17ff-5988-80bc-b494-d3759fac26f9"><strong>5.3 Database Migration</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14dd17ff-5988-80a4-bfce-cf16de92472a"><strong>6. Documentation Updates</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-8017-b8eb-e464e3d0672a"><strong>Future Enhancements</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80f8-accc-cb16d0032d35"><strong>Lessons Learned</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-80e0-a1e4-f12b106c0a55"><strong>Impact</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14dd17ff-5988-8024-aa82-fdbd2c779d45"><strong>Conclusion</strong></a></div></nav><hr id="14dd17ff-5988-80ec-9d72-d2026a8f8925"/><h1 id="14dd17ff-5988-8085-a3a1-cd1e2f9c1e58" class=""><strong>System Architecture</strong></h1><p id="14dd17ff-5988-807e-a6d2-f9bacc548ebe" class="">The Timetracker system was designed with a modular architecture to ensure scalability, security, and seamless integration across all components. Each layer of the architecture played a critical role in automating workflows and enhancing user experience.</p><p id="14dd17ff-5988-8026-bb98-cf3b6a88cfea" class="">
+</p><figure id="14dd17ff-5988-803e-8020-dcf81969a255" class="image"><a href="Timetracker%20for%20Assembly%20Employees%2014dd17ff598880e498ceedb59e62acd4/timetracker-sequence-diagram.png"><img style="width:707.984375px" src="Timetracker%20for%20Assembly%20Employees%2014dd17ff598880e498ceedb59e62acd4/timetracker-sequence-diagram.png"/></a><figcaption>Sequence Diagram for employee clock-in</figcaption></figure><h2 id="14dd17ff-5988-8061-bbec-cbfdcc0745fe" class=""><strong>Backend</strong></h2><ul id="14dd17ff-5988-8072-ad48-ebb38802b834" class="bulleted-list"><li style="list-style-type:disc"><strong>Framework:</strong> Python Flask<ul id="14dd17ff-5988-802c-8d7f-f03e141bf8d3" class="bulleted-list"><li style="list-style-type:circle">Chosen for its lightweight structure and ability to build RESTful APIs efficiently.</li></ul></li></ul><ul id="14dd17ff-5988-800a-8d23-c33ccb57e838" class="bulleted-list"><li style="list-style-type:disc"><strong>Core Functionalities:</strong><ul id="14dd17ff-5988-808e-8a73-f3d409eabf8e" class="bulleted-list"><li style="list-style-type:circle">Processed clock-in/out requests via APIs with data validation to ensure accuracy.</li></ul><ul id="14dd17ff-5988-80a7-acc9-cfb6214a4636" class="bulleted-list"><li style="list-style-type:circle">Managed secure communication with the SQL Server database for real-time updates.</li></ul></li></ul><ul id="14dd17ff-5988-80c8-bcf4-d89af5ee38bd" class="bulleted-list"><li style="list-style-type:disc"><strong>Security Measures:</strong><ul id="14dd17ff-5988-802b-8901-dd59129faf58" class="bulleted-list"><li style="list-style-type:circle">Enforced token-based authentication for secure API access.</li></ul><ul id="14dd17ff-5988-80d2-a90d-d796796f03a6" class="bulleted-list"><li style="list-style-type:circle">Protected internal routes with role-based access controls to restrict unauthorized data manipulation.</li></ul></li></ul><hr id="14dd17ff-5988-805a-a64f-d7ebc03e8f75"/><h2 id="14dd17ff-5988-80ca-8aea-c619c135a3cf" class=""><strong>Frontend</strong></h2><ul id="14dd17ff-5988-801c-befb-eb6156f686c9" class="bulleted-list"><li style="list-style-type:disc"><strong>Framework:</strong> TypeScript with AngularJS<ul id="14dd17ff-5988-80a7-beaa-efc995dd361a" class="bulleted-list"><li style="list-style-type:circle">Used AngularJS for creating dynamic, interactive interfaces tailored to the needs of employees and managers.</li></ul></li></ul><ul id="14dd17ff-5988-80f8-85dd-d671b433a56a" class="bulleted-list"><li style="list-style-type:disc"><strong>Design System:</strong> Material UI<ul id="14dd17ff-5988-80c5-b69d-c62c745e7971" class="bulleted-list"><li style="list-style-type:circle">Ensured consistency and responsiveness across devices, from desktops to tablets used on the assembly line.</li></ul></li></ul><ul id="14dd17ff-5988-8006-9904-c2331f35ed74" class="bulleted-list"><li style="list-style-type:disc"><strong>Features:</strong><ul id="14dd17ff-5988-8003-9603-f724fdc71df7" class="bulleted-list"><li style="list-style-type:circle">User-friendly interface with a simple badge-scanning flow for employees.</li></ul><ul id="14dd17ff-5988-805b-8294-d5f5f11b07bc" class="bulleted-list"><li style="list-style-type:circle">Dashboard for managers with real-time tracking, employee hour summaries, and payroll tools.</li></ul></li></ul><hr id="14dd17ff-5988-8088-b5ee-d12960959cfb"/><h2 id="14dd17ff-5988-80a2-bfca-d6f2a20bd174" class=""><strong>Database</strong></h2><ul id="14dd17ff-5988-80d6-955a-c31180213b83" class="bulleted-list"><li style="list-style-type:disc"><strong>Database Engine:</strong> SQL Server<ul id="14dd17ff-5988-80c8-bd4f-db168b8699e6" class="bulleted-list"><li style="list-style-type:circle">Selected for its reliability and ability to handle structured data at scale.</li></ul></li></ul><ul id="14dd17ff-5988-8013-8680-fe9ba7d28f7d" class="bulleted-list"><li style="list-style-type:disc"><strong>Database Schema:</strong><ul id="14dd17ff-5988-8091-818f-f22294992a56" class="bulleted-list"><li style="list-style-type:circle">Employee records, clock-in/out timestamps, and payroll data were stored in normalized tables.</li></ul></li></ul><ul id="14dd17ff-5988-800d-a76a-d9d00fee0884" class="bulleted-list"><li style="list-style-type:disc"><strong>Optimizations:</strong><ul id="14dd17ff-5988-8052-b53d-dcd40796c192" class="bulleted-list"><li style="list-style-type:circle">Indexing ensured rapid data retrieval for real-time operations.</li></ul><ul id="14dd17ff-5988-80a0-ae8c-cd6a7d774654" class="bulleted-list"><li style="list-style-type:circle">Scheduled backups maintained data integrity and recovery options.</li></ul></li></ul><hr id="14dd17ff-5988-804d-8395-dde833350b62"/><h2 id="14dd17ff-5988-800c-bcc2-fcaa4efccaca" class=""><strong>Integration &amp; Middleware</strong></h2><ul id="14dd17ff-5988-80a1-84b5-d3aa580e29f0" class="bulleted-list"><li style="list-style-type:disc"><strong>API Development:</strong><ul id="14dd17ff-5988-80ca-a714-c3feb7b23bcc" class="bulleted-list"><li style="list-style-type:circle">RESTful APIs connected the frontend to the backend, enabling seamless data exchange.</li></ul><ul id="14dd17ff-5988-8025-96d1-da3fc862a832" class="bulleted-list"><li style="list-style-type:circle">APIs handled CRUD operations for employee records, time tracking, and payroll data.</li></ul></li></ul><ul id="14dd17ff-5988-802d-bebc-c047fd473402" class="bulleted-list"><li style="list-style-type:disc"><strong>Middleware:</strong><ul id="14dd17ff-5988-8030-b739-dc8c5fb78b04" class="bulleted-list"><li style="list-style-type:circle">Input validation middleware ensured consistent and secure data processing.</li></ul></li></ul><hr id="14dd17ff-5988-805b-ad6c-ce86d0fe8c89"/><h2 id="14dd17ff-5988-80fc-832c-c9eff923b902" class=""><strong>Deployment</strong></h2><ul id="14dd17ff-5988-801d-8b0c-db600e2e13ce" class="bulleted-list"><li style="list-style-type:disc"><strong>Infrastructure:</strong> Hosted on an on-premises server for internal use, ensuring data security and compliance with company policies.</li></ul><ul id="14dd17ff-5988-809e-8dc9-f90c8b620b94" class="bulleted-list"><li style="list-style-type:disc"><strong>CI/CD Pipeline:</strong><ul id="14dd17ff-5988-80d1-8c6e-fe68533da076" class="bulleted-list"><li style="list-style-type:circle">Automated testing and deployment pipelines minimized errors and reduced downtime during updates.</li></ul></li></ul><hr id="14dd17ff-5988-806f-a47d-e6fb049fda71"/><h2 id="14dd17ff-5988-8042-865c-dbbaeedf03b4" class=""><strong>System Workflow</strong></h2><figure id="14dd17ff-5988-8002-bb4d-f5fdc1a3a7ef" class="image"><a href="Timetracker%20for%20Assembly%20Employees%2014dd17ff598880e498ceedb59e62acd4/timetracker-workflow-chart.png"><img style="width:707.9921875px" src="Timetracker%20for%20Assembly%20Employees%2014dd17ff598880e498ceedb59e62acd4/timetracker-workflow-chart.png"/></a><figcaption>Workflow Flowchart for Timetracker </figcaption></figure><p id="14dd17ff-5988-80ef-9b1b-ddf1583513c2" class=""><strong>Employee Clock-In/Out:</strong><div class="indented"><ul id="14dd17ff-5988-80d2-81c0-e4edf68dd67d" class="bulleted-list"><li style="list-style-type:disc">Employees scan their badges using a connected device.</li></ul><ul id="14dd17ff-5988-80b2-83e2-d6235771fd63" class="bulleted-list"><li style="list-style-type:disc">The frontend sends an API request to the backend to record the timestamp.</li></ul><ul id="14dd17ff-5988-8012-8203-fd903ddd5360" class="bulleted-list"><li style="list-style-type:disc">The backend updates the SQL Server database in real time.</li></ul></div></p><p id="14dd17ff-5988-8078-89c8-c66141f0833c" class=""><strong>Managerial Oversight:</strong><div class="indented"><ul id="14dd17ff-5988-8074-9024-f8d2cd6e6148" class="bulleted-list"><li style="list-style-type:disc">Managers access the dashboard through a secure login.</li></ul><ul id="14dd17ff-5988-80b3-8201-e2750949fb0b" class="bulleted-list"><li style="list-style-type:disc">Real-time data on employee hours and payroll is displayed, enabling quick decisions and approvals.</li></ul></div></p><p id="14dd17ff-5988-8045-ba1e-dfb39a63a4c8" class=""><strong>Payroll Generation:</strong><div class="indented"><ul id="14dd17ff-5988-80c4-8e6f-e0f370906b64" class="bulleted-list"><li style="list-style-type:disc">Batch processing tools compile employee hours into payroll-ready reports.</li></ul><ul id="14dd17ff-5988-80b7-9632-f9b9259abd89" class="bulleted-list"><li style="list-style-type:disc">Managers approve the reports, which are stored for future audits.</li></ul></div></p><hr id="14dd17ff-5988-8005-bbb1-ce9551120dc1"/><h1 id="14dd17ff-5988-805a-a390-df864f23d510" class="">API Documentation</h1><p id="14dd17ff-5988-80eb-bd95-c89efdd0cd35" class="">The <strong>Timetracker</strong> APIs provide secure endpoints for employee time tracking, payroll management, and administrative actions.</p><h3 id="14dd17ff-5988-802e-bf74-d2796ecca557" class=""><strong>Endpoints Overview</strong></h3><table id="14dd17ff-5988-8025-9740-cdce42f9071c" class="simple-table"><tbody><tr id="14dd17ff-5988-80be-b5c8-e957a701b7eb"><td id="HFUG" class="">Method</td><td id="VehX" class="">Endpoint</td><td id="tLA^" class="">Description</td></tr><tr id="14dd17ff-5988-803a-983a-ef7c5908dd15"><td id="HFUG" class=""><code>POST</code></td><td id="VehX" class=""><code>/api/clock-in</code></td><td id="tLA^" class="">Records a clock-in or clock-out event.</td></tr><tr id="14dd17ff-5988-8022-b323-e6d6c1760840"><td id="HFUG" class=""><code>GET</code></td><td id="VehX" class=""><code>/api/employee</code></td><td id="tLA^" class="">Retrieves details for an employee.</td></tr><tr id="14dd17ff-5988-8068-b59a-f9ba6dd7a22e"><td id="HFUG" class=""><code>GET</code></td><td id="VehX" class=""><code>/api/employees</code></td><td id="tLA^" class="">Fetches all employees and their statuses.</td></tr><tr id="14dd17ff-5988-80a5-817d-dc81457cddb2"><td id="HFUG" class=""><code>POST</code></td><td id="VehX" class=""><code>/api/payroll</code></td><td id="tLA^" class="">Generates a payroll summary.</td></tr><tr id="14dd17ff-5988-80a6-9a9f-c7d8bf3c2fd8"><td id="HFUG" class=""><code>PUT</code></td><td id="VehX" class=""><code>/api/update</code></td><td id="tLA^" class="">Updates employee details.</td></tr></tbody></table><hr id="14dd17ff-5988-8066-9ce6-e7d0d0004db9"/><h3 id="14dd17ff-5988-8077-bb2e-fe25726accc0" class=""><strong>Authentication</strong></h3><p id="14dd17ff-5988-801d-9752-e839dd074650" class="">All endpoints require <strong>token-based authentication</strong>. Tokens are included in the <code>Authorization</code> header as a Bearer token.</p><p id="14dd17ff-5988-8092-9b82-c2abce8b2252" class="">Example:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-80ae-8e3e-dd5083e11122" class="code"><code class="language-Makefile" style="white-space:pre-wrap;word-break:break-all">Authorization: Bearer &lt;your-token&gt;</code></pre><hr id="14dd17ff-5988-8040-b4a4-f7730938bbdd"/><h3 id="14dd17ff-5988-80e7-84db-e477f4f27781" class=""><strong>1. POST /api/clock-in</strong></h3><p id="14dd17ff-5988-800c-9f1b-ee0601f86006" class=""><strong>Description:</strong></p><p id="14dd17ff-5988-8090-ab27-e912bd4eff8a" class="">Logs a clock-in or clock-out event for an employee.</p><p id="14dd17ff-5988-80ca-b449-e977deee9c5d" class=""><strong>Headers:</strong></p><ul id="14dd17ff-5988-80c6-bc3d-fc3e75689913" class="bulleted-list"><li style="list-style-type:disc"><code>Authorization</code>: Bearer token (required)</li></ul><ul id="14dd17ff-5988-8027-a422-dd26e442f3b4" class="bulleted-list"><li style="list-style-type:disc"><code>Content-Type</code>: application/json</li></ul><p id="14dd17ff-5988-8049-a0d9-c4e2a3412c5c" class=""><strong>Request Body:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-802e-8050-caad25c3e670" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;employee_id&quot;: &quot;12345&quot;,
+  &quot;timestamp&quot;: &quot;2024-11-29T10:30:00Z&quot;,
+  &quot;action&quot;: &quot;clock-in&quot;
+}</code></pre><p id="14dd17ff-5988-8077-8372-feaee5db9053" class=""><strong>Response:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-80e7-ba65-d98a9097ef74" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Clock-in recorded successfully.&quot;
+}</code></pre><p id="14dd17ff-5988-802c-b26d-de1fde090b9d" class=""><strong>Error Codes:</strong></p><ul id="14dd17ff-5988-8078-bbfe-ef86d8a20a35" class="bulleted-list"><li style="list-style-type:disc"><code>400 Bad Request</code>: Invalid data in the request body.</li></ul><ul id="14dd17ff-5988-80d8-a49e-cc8527855773" class="bulleted-list"><li style="list-style-type:disc"><code>401 Unauthorized</code>: Missing or invalid token.</li></ul><hr id="14dd17ff-5988-8004-9e4d-d6d8c9503a30"/><h3 id="14dd17ff-5988-80bc-9f90-e037df9f9f9a" class=""><strong>2. GET /api/employee</strong></h3><p id="14dd17ff-5988-8006-84ba-fd1232ea1d78" class=""><strong>Description:</strong></p><p id="14dd17ff-5988-8030-844d-eb3415ed08fa" class="">Retrieves details for a specific employee.</p><p id="14dd17ff-5988-80fb-888d-c6491a148acc" class=""><strong>Headers:</strong></p><ul id="14dd17ff-5988-80b9-a1ca-eb81a2781556" class="bulleted-list"><li style="list-style-type:disc"><code>Authorization</code>: Bearer token (required)</li></ul><p id="14dd17ff-5988-8042-bbd3-c6916faa5731" class=""><strong>Query Parameters:</strong></p><ul id="14dd17ff-5988-80b5-b930-fa23a9bba1b8" class="bulleted-list"><li style="list-style-type:disc"><code>employee_id</code> (required): ID of the employee.</li></ul><p id="14dd17ff-5988-80de-9ce5-f9fdc5dc549e" class=""><strong>Example Request:</strong></p><p id="14dd17ff-5988-80ac-9a9d-ef17903c1aec" class=""><code>GET /api/employee?employee_id=12345</code></p><p id="14dd17ff-5988-8044-bed7-d86e3cef9219" class=""><strong>Response:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-80c6-92c7-cdcce42a271c" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;employee_id&quot;: &quot;12345&quot;,
+  &quot;name&quot;: &quot;John Doe&quot;,
+  &quot;status&quot;: &quot;clocked-in&quot;,
+  &quot;last_clock_in&quot;: &quot;2024-11-29T10:30:00Z&quot;
+}</code></pre><p id="14dd17ff-5988-8087-8ad4-ca39806c3bd7" class=""><strong>Error Codes:</strong></p><ul id="14dd17ff-5988-80bc-9b66-e28316f7fb24" class="bulleted-list"><li style="list-style-type:disc"><code>404 Not Found</code>: Employee ID not found.</li></ul><ul id="14dd17ff-5988-805e-a904-fa4457c54e68" class="bulleted-list"><li style="list-style-type:disc"><code>401 Unauthorized</code>: Missing or invalid token.</li></ul><hr id="14dd17ff-5988-8073-b89b-d56190745ddf"/><h3 id="14dd17ff-5988-80f9-8dd4-f149aac86000" class=""><strong>3. GET /api/employees</strong></h3><p id="14dd17ff-5988-807d-ba5b-c576d0e3b9c9" class=""><strong>Description:</strong></p><p id="14dd17ff-5988-80da-b674-eaf28db0b026" class="">Fetches a list of all employees and their statuses.</p><p id="14dd17ff-5988-8070-9fba-ea000b492a07" class=""><strong>Headers:</strong></p><ul id="14dd17ff-5988-80c1-8724-c06040e1ba66" class="bulleted-list"><li style="list-style-type:disc"><code>Authorization</code>: Bearer token (required)</li></ul><p id="14dd17ff-5988-8018-b490-df8e82f67e6d" class=""><strong>Response:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-80a5-b377-f04955491af8" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">[
+  {
+    &quot;employee_id&quot;: &quot;12345&quot;,
+    &quot;name&quot;: &quot;John Doe&quot;,
+    &quot;status&quot;: &quot;clocked-in&quot;
+  },
+  {
+    &quot;employee_id&quot;: &quot;67890&quot;,
+    &quot;name&quot;: &quot;Jane Smith&quot;,
+    &quot;status&quot;: &quot;clocked-out&quot;
+  }
+]</code></pre><p id="14dd17ff-5988-8031-91dc-f865fa36c758" class=""><strong>Error Codes:</strong></p><ul id="14dd17ff-5988-8002-9728-d10f427782af" class="bulleted-list"><li style="list-style-type:disc"><code>401 Unauthorized</code>: Missing or invalid token.</li></ul><hr id="14dd17ff-5988-80b4-b3e0-e2c055bce08a"/><h3 id="14dd17ff-5988-80ed-891c-fd14ed10e648" class=""><strong>4. POST /api/payroll</strong></h3><p id="14dd17ff-5988-803a-9bb2-e6dd804657fd" class=""><strong>Description:</strong></p><p id="14dd17ff-5988-8001-b8c2-e00dc4ba7508" class="">Generates a payroll summary for all employees.</p><p id="14dd17ff-5988-80fe-bf4e-feda03b1a383" class=""><strong>Headers:</strong></p><ul id="14dd17ff-5988-80d9-b8e8-f0a31e4ae545" class="bulleted-list"><li style="list-style-type:disc"><code>Authorization</code>: Bearer token (required)</li></ul><ul id="14dd17ff-5988-8028-9873-f24e468383cf" class="bulleted-list"><li style="list-style-type:disc"><code>Content-Type</code>: application/json</li></ul><p id="14dd17ff-5988-802f-9cea-e1d890e3d661" class=""><strong>Request Body:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-807a-8205-d32edcc86c1f" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;start_date&quot;: &quot;2024-11-01&quot;,
+  &quot;end_date&quot;: &quot;2024-11-30&quot;
+}</code></pre><p id="14dd17ff-5988-8053-8a38-f4b21fc12bf0" class=""><strong>Response:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-80cc-9feb-f3bf5e1ced4f" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;payroll_summary&quot;: [
+    {
+      &quot;employee_id&quot;: &quot;12345&quot;,
+      &quot;total_hours&quot;: 160,
+      &quot;pay&quot;: 3200
+    },
+    {
+      &quot;employee_id&quot;: &quot;67890&quot;,
+      &quot;total_hours&quot;: 120,
+      &quot;pay&quot;: 2400
+    }
+  ]
+}</code></pre><p id="14dd17ff-5988-80ed-b693-d1336b82aac3" class=""><strong>Error Codes:</strong></p><ul id="14dd17ff-5988-805d-b6a8-cc3a06d962c0" class="bulleted-list"><li style="list-style-type:disc"><code>400 Bad Request</code>: Invalid date range.</li></ul><ul id="14dd17ff-5988-80b9-8490-e1f1b0720e86" class="bulleted-list"><li style="list-style-type:disc"><code>401 Unauthorized</code>: Missing or invalid token.</li></ul><hr id="14dd17ff-5988-806c-a14f-cc04abd5df45"/><h3 id="14dd17ff-5988-804b-bc81-f84333390088" class=""><strong>5. PUT /api/update</strong></h3><p id="14dd17ff-5988-8024-b4a5-f0f5430f02f8" class=""><strong>Description:</strong></p><p id="14dd17ff-5988-8071-aae2-ca5228700207" class="">Updates details of an employee, such as their name or status.</p><p id="14dd17ff-5988-801b-a45c-e8658e485d5c" class=""><strong>Headers:</strong></p><ul id="14dd17ff-5988-804d-b6f4-c0f4b0b1bbae" class="bulleted-list"><li style="list-style-type:disc"><code>Authorization</code>: Bearer token (required)</li></ul><ul id="14dd17ff-5988-8041-b461-fe07fcc8b2e2" class="bulleted-list"><li style="list-style-type:disc"><code>Content-Type</code>: application/json</li></ul><p id="14dd17ff-5988-804f-b70a-f4dde5759c19" class=""><strong>Request Body:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-8058-be9b-edc119c38773" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;employee_id&quot;: &quot;12345&quot;,
+  &quot;name&quot;: &quot;Johnathan Doe&quot;,
+  &quot;status&quot;: &quot;active&quot;
+}</code></pre><p id="14dd17ff-5988-805d-be5d-dfc717a71977" class=""><strong>Response:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14dd17ff-5988-80cc-a04d-c60bdef343ac" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Employee details updated.&quot;
+}</code></pre><p id="14dd17ff-5988-8082-8d2f-f8ff5052ba66" class=""><strong>Error Codes:</strong></p><ul id="14dd17ff-5988-8042-a6f6-c877b3521c24" class="bulleted-list"><li style="list-style-type:disc"><code>400 Bad Request</code>: Invalid or missing fields in the request body.</li></ul><ul id="14dd17ff-5988-8094-87e0-e79c7aa5b34b" class="bulleted-list"><li style="list-style-type:disc"><code>404 Not Found</code>: Employee ID not found.</li></ul><hr id="14dd17ff-5988-8061-8f54-fbe623c8fdb4"/><h1 id="14dd17ff-5988-8095-8607-fa22abb69393" class="">User Documentation </h1><p id="14dd17ff-5988-80a7-a381-ff937ed4cac3" class="">The <strong>Timetracker</strong> system offers two primary interfaces: one for employees and another for managers. This documentation provides a guide for using the key features of the system.</p><h2 id="14dd17ff-5988-80f8-8572-cd4bf7099b58" class=""><strong>For Employees</strong></h2><p id="14dd17ff-5988-806e-99c6-fc252247eaad" class=""><strong>Purpose:</strong> To clock in and clock out of work easily using a badge-scanning system.</p><h3 id="14dd17ff-5988-803f-adb2-fe73bb730b64" class=""><strong>Steps to Clock In/Out</strong></h3><ol type="1" id="14dd17ff-5988-807a-82f0-d08c58a92129" class="numbered-list" start="1"><li><strong>Scan Badge:</strong><ul id="14dd17ff-5988-80f7-9c8d-ea2dcb7a6424" class="bulleted-list"><li style="list-style-type:disc">Use the badge scanner placed at your workstation or designated area.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-802f-893c-f33b391d75d2" class="numbered-list" start="2"><li><strong>Confirm Action:</strong><ul id="14dd17ff-5988-80ac-bb71-fac0db00fd58" class="bulleted-list"><li style="list-style-type:disc">Tap the confirmation button on the screen to complete the clock-in or clock-out action.</li></ul><ul id="14dd17ff-5988-8032-b526-d534df4134f1" class="bulleted-list"><li style="list-style-type:disc">The system will display a success message once the action is recorded.</li></ul></li></ol><p id="14dd17ff-5988-80a8-8886-d6433cb9aad8" class=""><strong>Troubleshooting:</strong></p><ul id="14dd17ff-5988-80be-a9aa-d665efbe6112" class="bulleted-list"><li style="list-style-type:disc">If your badge is not recognized, ensure it is held properly against the scanner.</li></ul><ul id="14dd17ff-5988-802d-b834-c49f66533a01" class="bulleted-list"><li style="list-style-type:disc">Contact your supervisor if the issue persists.</li></ul><hr id="14dd17ff-5988-8044-b14a-e16cd0888726"/><h2 id="14dd17ff-5988-80ce-ac9c-e799c607daf8" class=""><strong>For Managers</strong></h2><p id="14dd17ff-5988-80b4-bbe3-d175f1d45ed5" class=""><strong>Purpose:</strong> To oversee employee work hours, approve payroll, and manage team attendance.</p><h3 id="14dd17ff-5988-806e-b405-e75bb5f4b45d" class=""><strong>Accessing the Dashboard</strong></h3><ol type="1" id="14dd17ff-5988-8019-95a1-d33669de9207" class="numbered-list" start="1"><li><strong>Log In:</strong><ul id="14dd17ff-5988-80b0-8ddc-fcfe1a8e349e" class="bulleted-list"><li style="list-style-type:disc">Navigate to the secure portal at <code>[internal URL]</code>.</li></ul><ul id="14dd17ff-5988-80b5-aaf0-d2f7ae93f95e" class="bulleted-list"><li style="list-style-type:disc">Enter your credentials and complete multi-factor authentication (if enabled).</li></ul></li></ol><ol type="1" id="14dd17ff-5988-8052-b219-eefe3c336229" class="numbered-list" start="2"><li><strong>View Employee Statuses:</strong><ul id="14dd17ff-5988-80e4-b251-d74ac0be2802" class="bulleted-list"><li style="list-style-type:disc">The dashboard displays a real-time list of all employees, their clock-in statuses, and hours worked.</li></ul><ul id="14dd17ff-5988-8041-abb1-eb167cf406ba" class="bulleted-list"><li style="list-style-type:disc">Use the search bar to locate specific employees by name or ID.</li></ul></li></ol><h3 id="14dd17ff-5988-807a-b485-ea8ff35d05ab" class=""><strong>Managing Payroll</strong></h3><ol type="1" id="14dd17ff-5988-808f-977d-f562a78b9fff" class="numbered-list" start="1"><li><strong>Generate Payroll Summary:</strong><ul id="14dd17ff-5988-80fc-b9e5-da3831936314" class="bulleted-list"><li style="list-style-type:disc">Go to the &quot;Payroll&quot; tab in the dashboard.</li></ul><ul id="14dd17ff-5988-804d-8777-f0ea95cab259" class="bulleted-list"><li style="list-style-type:disc">Select the date range for the payroll period.</li></ul><ul id="14dd17ff-5988-80a5-8fe1-ecd176bb8a11" class="bulleted-list"><li style="list-style-type:disc">Click “Generate” to review the hours worked and corresponding pay for each employee.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-8068-b94e-ee2e0225844d" class="numbered-list" start="2"><li><strong>Approve Payroll:</strong><ul id="14dd17ff-5988-8050-8a1e-c957a0f9e1ad" class="bulleted-list"><li style="list-style-type:disc">Review the summary and click “Approve” to finalize payroll.</li></ul><ul id="14dd17ff-5988-80fd-9519-d840590ab827" class="bulleted-list"><li style="list-style-type:disc">The system saves the summary for future audits.</li></ul></li></ol><h3 id="14dd17ff-5988-8016-b8a2-c28cce3af2a3" class=""><strong>Editing Employee Details</strong></h3><ol type="1" id="14dd17ff-5988-80ee-a632-df857820c10a" class="numbered-list" start="1"><li><strong>Navigate to the Employee Tab:</strong><ul id="14dd17ff-5988-8064-90ef-dc207e3ba03f" class="bulleted-list"><li style="list-style-type:disc">Find the employee you wish to update in the dashboard.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-80e7-bd18-e72307c7d108" class="numbered-list" start="2"><li><strong>Edit Information:</strong><ul id="14dd17ff-5988-805c-b0f2-e9d7d751d00f" class="bulleted-list"><li style="list-style-type:disc">Click on the employee record and update their details (e.g., name, status).</li></ul><ul id="14dd17ff-5988-80a1-8359-d196869ef72c" class="bulleted-list"><li style="list-style-type:disc">Save the changes to apply them instantly.</li></ul></li></ol><hr id="14dd17ff-5988-8033-b7a7-cd4c37ec35ae"/><h2 id="14dd17ff-5988-8001-acc3-ec6e8d86ae3e" class=""><strong>Common Scenarios</strong></h2><p id="14dd17ff-5988-802c-93f3-dce31cf92e35" class=""><strong>1. Approving Late Clock-Ins</strong></p><ul id="14dd17ff-5988-80b8-aa7c-e5b84a6332cf" class="bulleted-list"><li style="list-style-type:disc">Locate the employee in the dashboard.</li></ul><ul id="14dd17ff-5988-8092-904f-ef5e7c2e4ac0" class="bulleted-list"><li style="list-style-type:disc">Click &quot;Adjust Time&quot; to edit the clock-in time manually.</li></ul><ul id="14dd17ff-5988-80be-ab73-ed13a9d18111" class="bulleted-list"><li style="list-style-type:disc">Save the changes, and the system will recalculate the total hours worked.</li></ul><p id="14dd17ff-5988-8088-b77e-f909fe522fef" class=""><strong>2. Generating Reports for Multiple Employees</strong></p><ul id="14dd17ff-5988-8034-82d2-fd1dea0f0601" class="bulleted-list"><li style="list-style-type:disc">Use the &quot;Batch Operations&quot; tool to process multiple employees&#x27; data at once.</li></ul><ul id="14dd17ff-5988-808d-ab12-da45541bea7e" class="bulleted-list"><li style="list-style-type:disc">Upload a CSV file with employee IDs and actions (e.g., clock-in, clock-out).</li></ul><ul id="14dd17ff-5988-80db-9e06-eb256b903488" class="bulleted-list"><li style="list-style-type:disc">Review the system-generated preview before finalizing.</li></ul><p id="14dd17ff-5988-8027-81b8-ced82165f0d6" class=""><strong>3. Resolving Badge Issues</strong></p><ul id="14dd17ff-5988-803d-8dae-e8f4d14bc470" class="bulleted-list"><li style="list-style-type:disc">If an employee&#x27;s badge isn’t working, issue a temporary badge using the &quot;Badge Management&quot; tab.</li></ul><hr id="14dd17ff-5988-80ab-bbf6-c18c27cca428"/><h2 id="14dd17ff-5988-8023-9391-c7a056330a2e" class=""><strong>Frequently Asked Questions (FAQ)</strong></h2><p id="14dd17ff-5988-800e-b3e8-eb6ea987537b" class=""><strong>Q: What if I forget to clock in or out?</strong></p><p id="14dd17ff-5988-80a4-8492-d56ee9d9fc26" class="">A: Inform your manager, who can manually adjust the time in the system.</p><p id="14dd17ff-5988-8002-a04d-ef9a449ad75d" class=""><strong>Q: How secure is my data?</strong></p><p id="14dd17ff-5988-80e4-a3af-eeb7950fd31d" class="">A: All data is encrypted and accessible only through role-based access controls.</p><p id="14dd17ff-5988-80b1-b9b7-ef1991c779d0" class=""><strong>Q: Can I access my work hours?</strong></p><p id="14dd17ff-5988-8043-a391-c402399a0401" class="">A: Employees can request their clock-in/out history from their manager.</p><hr id="14dd17ff-5988-80e6-bc50-ca8d769c562a"/><h1 id="14dd17ff-5988-80a4-8464-eee2ecabcfc9" class="">Maintenance Guide</h1><p id="14dd17ff-5988-80b9-a84f-f7ca5965f2a8" class="">This guide outlines the best practices and steps for maintaining the <strong>Timetracker for Assembly Employees</strong> system to ensure reliability, performance, and security.</p><hr id="14dd17ff-5988-8074-9af1-c9947e4511b5"/><h2 id="14dd17ff-5988-80fe-9cc4-fb362d7438ca" class=""><strong>1. Regular Maintenance Tasks</strong></h2><h3 id="14dd17ff-5988-8065-a2ba-e29447f6c94a" class=""><strong>1.1 Database Maintenance</strong></h3><ul id="14dd17ff-5988-808c-81ec-e5d7331d6b50" class="bulleted-list"><li style="list-style-type:disc"><strong>Backup:</strong><ul id="14dd17ff-5988-80af-94bb-df80648ca52d" class="bulleted-list"><li style="list-style-type:circle">Schedule daily backups of the SQL Server database.</li></ul><ul id="14dd17ff-5988-8002-b96c-c4d4bfb00fe5" class="bulleted-list"><li style="list-style-type:circle">Verify backup integrity weekly to ensure restorability.</li></ul></li></ul><ul id="14dd17ff-5988-8090-8681-f5fbec263ace" class="bulleted-list"><li style="list-style-type:disc"><strong>Optimization:</strong><ul id="14dd17ff-5988-8019-8508-d93adfbb2262" class="bulleted-list"><li style="list-style-type:circle">Run database optimization scripts monthly to rebuild indexes and update statistics for improved query performance.</li></ul></li></ul><ul id="14dd17ff-5988-8073-9913-d88dd61eef7f" class="bulleted-list"><li style="list-style-type:disc"><strong>Cleanup:</strong><ul id="14dd17ff-5988-80de-8314-dbaef07f6e7e" class="bulleted-list"><li style="list-style-type:circle">Periodically archive or delete outdated clock-in/out records to maintain database size and performance.</li></ul></li></ul><h3 id="14dd17ff-5988-807a-a439-c12b04e4e567" class=""><strong>1.2 Frontend Maintenance</strong></h3><ul id="14dd17ff-5988-808e-b463-dbd316a12659" class="bulleted-list"><li style="list-style-type:disc"><strong>Code Review:</strong><ul id="14dd17ff-5988-80f8-897b-d5e843455958" class="bulleted-list"><li style="list-style-type:circle">Review and update AngularJS and Material UI components quarterly to ensure compatibility with modern browsers.</li></ul></li></ul><ul id="14dd17ff-5988-8065-aa81-e566f2ec6824" class="bulleted-list"><li style="list-style-type:disc"><strong>Dependency Updates:</strong><ul id="14dd17ff-5988-8011-807f-de28d7c8ed22" class="bulleted-list"><li style="list-style-type:circle">Update TypeScript and AngularJS dependencies every quarter or as updates are released.</li></ul><ul id="14dd17ff-5988-8093-82fd-fc568843ae2e" class="bulleted-list"><li style="list-style-type:circle">Test compatibility in a staging environment before deployment.</li></ul></li></ul><h3 id="14dd17ff-5988-803e-8d5a-fb65e8286f44" class=""><strong>1.3 Backend Maintenance</strong></h3><ul id="14dd17ff-5988-80f1-b44b-cc5f23737894" class="bulleted-list"><li style="list-style-type:disc"><strong>API Performance Testing:</strong><ul id="14dd17ff-5988-80b7-bd6b-ebfad7bc6335" class="bulleted-list"><li style="list-style-type:circle">Run stress tests on the Python Flask APIs biannually to ensure they handle peak loads effectively.</li></ul></li></ul><ul id="14dd17ff-5988-80e6-ad9d-eb36866c2d97" class="bulleted-list"><li style="list-style-type:disc"><strong>Security Patching:</strong><ul id="14dd17ff-5988-8042-a9d8-e996749f2066" class="bulleted-list"><li style="list-style-type:circle">Apply patches and updates to Python Flask libraries and the server environment as soon as vulnerabilities are announced.</li></ul></li></ul><h3 id="14dd17ff-5988-800a-8fe0-cd1a2f30a573" class=""><strong>1.4 CI/CD Pipeline</strong></h3><ul id="14dd17ff-5988-8048-969b-d42d8fdf8f3b" class="bulleted-list"><li style="list-style-type:disc"><strong>Pipeline Checks:</strong><ul id="14dd17ff-5988-80c1-aeb6-d068e95d1eac" class="bulleted-list"><li style="list-style-type:circle">Review CI/CD workflows monthly to ensure deployments are automated and efficient.</li></ul><ul id="14dd17ff-5988-8063-9976-d3ff65e98455" class="bulleted-list"><li style="list-style-type:circle">Monitor build times and logs for bottlenecks or errors.</li></ul></li></ul><ul id="14dd17ff-5988-80ce-be72-ff97c46e9bce" class="bulleted-list"><li style="list-style-type:disc"><strong>Testing:</strong><ul id="14dd17ff-5988-8005-8dfd-d061282f9652" class="bulleted-list"><li style="list-style-type:circle">Update and expand automated test cases to cover new features or changes in business logic.</li></ul></li></ul><hr id="14dd17ff-5988-8025-8485-e5e2cda41201"/><h2 id="14dd17ff-5988-8076-bf13-f42828fb20a1" class=""><strong>2. System Monitoring</strong></h2><h3 id="14dd17ff-5988-80db-b8dc-d5266cec744b" class=""><strong>2.1 Logs</strong></h3><ul id="14dd17ff-5988-8024-94aa-eb2ff0e0b07c" class="bulleted-list"><li style="list-style-type:disc"><strong>Log Types:</strong><ul id="14dd17ff-5988-8032-9754-d2e19038e084" class="bulleted-list"><li style="list-style-type:circle"><strong>Application Logs:</strong> Monitor API requests, errors, and responses.</li></ul><ul id="14dd17ff-5988-80a1-8235-eb5f1cd054ed" class="bulleted-list"><li style="list-style-type:circle"><strong>Access Logs:</strong> Track user activity for security and auditing purposes.</li></ul></li></ul><ul id="14dd17ff-5988-803a-b6e4-faa150ba818e" class="bulleted-list"><li style="list-style-type:disc"><strong>Log Retention:</strong><ul id="14dd17ff-5988-8062-ad15-f43c4cf14fb8" class="bulleted-list"><li style="list-style-type:circle">Retain logs for a minimum of 90 days for troubleshooting and audits.</li></ul></li></ul><ul id="14dd17ff-5988-80f3-b411-c9fa1a277e83" class="bulleted-list"><li style="list-style-type:disc"><strong>Tools:</strong><ul id="14dd17ff-5988-80bd-a83e-cf0b68524170" class="bulleted-list"><li style="list-style-type:circle">Use tools like Logstash or ELK Stack for centralized log management.</li></ul></li></ul><h3 id="14dd17ff-5988-8093-aa18-f16351b52bcd" class=""><strong>2.2 Uptime Monitoring</strong></h3><ul id="14dd17ff-5988-8029-a906-ffb2454f63ea" class="bulleted-list"><li style="list-style-type:disc"><strong>Tools:</strong><ul id="14dd17ff-5988-8091-88d0-d5c16543936b" class="bulleted-list"><li style="list-style-type:circle">Use uptime monitoring tools like Pingdom or Nagios to track the system&#x27;s availability.</li></ul></li></ul><ul id="14dd17ff-5988-805b-a9db-c8d6bee23c4a" class="bulleted-list"><li style="list-style-type:disc"><strong>Alerts:</strong><ul id="14dd17ff-5988-8024-907b-cfb6d0a8d8cc" class="bulleted-list"><li style="list-style-type:circle">Set up alerts for key issues such as server downtime, high API response times, or database connection errors.</li></ul></li></ul><hr id="14dd17ff-5988-8011-a5f1-fab4fade18e5"/><h2 id="14dd17ff-5988-8008-a9ea-c498ae3d7cb7" class=""><strong>3. Troubleshooting</strong></h2><h3 id="14dd17ff-5988-8073-a501-c56b511cca48" class=""><strong>3.1 Common Issues</strong></h3><ul id="14dd17ff-5988-809d-99f9-de4dd5903ed3" class="bulleted-list"><li style="list-style-type:disc"><strong>Issue:</strong> Badge scanning not working.<ul id="14dd17ff-5988-8017-808a-cacc39ae1102" class="bulleted-list"><li style="list-style-type:circle"><strong>Cause:</strong> Scanner hardware malfunction or API connection error.</li></ul><ul id="14dd17ff-5988-803e-b2ca-d62f4e78f74c" class="bulleted-list"><li style="list-style-type:circle"><strong>Solution:</strong> Verify hardware functionality, and check API logs for errors. Restart services if necessary.</li></ul></li></ul><ul id="14dd17ff-5988-8011-b104-ebdc1d28177e" class="bulleted-list"><li style="list-style-type:disc"><strong>Issue:</strong> Payroll data discrepancies.<ul id="14dd17ff-5988-805b-a986-ef1d221dcb6c" class="bulleted-list"><li style="list-style-type:circle"><strong>Cause:</strong> Clock-in/out data corruption or user error.</li></ul><ul id="14dd17ff-5988-80c3-bc44-d7894d7e2782" class="bulleted-list"><li style="list-style-type:circle"><strong>Solution:</strong> Verify database records for the affected employee and manually adjust as needed.</li></ul></li></ul><ul id="14dd17ff-5988-8086-b2a1-e713d2d04055" class="bulleted-list"><li style="list-style-type:disc"><strong>Issue:</strong> Slow API response times.<ul id="14dd17ff-5988-80bb-ae8b-f2d9d8682714" class="bulleted-list"><li style="list-style-type:circle"><strong>Cause:</strong> High server load or inefficient database queries.</li></ul><ul id="14dd17ff-5988-809c-8d5f-c81cb761ca8a" class="bulleted-list"><li style="list-style-type:circle"><strong>Solution:</strong> Analyze API logs and optimize queries or increase server resources.</li></ul></li></ul><h3 id="14dd17ff-5988-80c4-aeb4-d0d93f582822" class=""><strong>3.2 Escalation Process</strong></h3><ol type="1" id="14dd17ff-5988-8027-b32e-d46f8850c3b7" class="numbered-list" start="1"><li>Identify and document the issue with detailed logs.</li></ol><ol type="1" id="14dd17ff-5988-804b-9b0a-c3256780f1ae" class="numbered-list" start="2"><li>Escalate unresolved issues to the development team or vendor with all relevant details.</li></ol><hr id="14dd17ff-5988-805e-a8ec-ebf573222ab4"/><h2 id="14dd17ff-5988-80bc-ab67-ed545e0dadc2" class=""><strong>4. Security Best Practices</strong></h2><ul id="14dd17ff-5988-80b0-90be-d317deeb4596" class="bulleted-list"><li style="list-style-type:disc"><strong>Access Control:</strong><ul id="14dd17ff-5988-808a-a548-f059e605b264" class="bulleted-list"><li style="list-style-type:circle">Regularly audit user roles and permissions. Revoke access for inactive accounts immediately.</li></ul></li></ul><ul id="14dd17ff-5988-80a4-83d9-c29b64560016" class="bulleted-list"><li style="list-style-type:disc"><strong>Encryption:</strong><ul id="14dd17ff-5988-80e4-9483-fa972ce059ae" class="bulleted-list"><li style="list-style-type:circle">Ensure all data in transit is encrypted using TLS.</li></ul><ul id="14dd17ff-5988-80d7-adb6-e80511d0ab21" class="bulleted-list"><li style="list-style-type:circle">Review encryption certificates annually and renew them before expiration.</li></ul></li></ul><ul id="14dd17ff-5988-808d-b940-e14ee812af27" class="bulleted-list"><li style="list-style-type:disc"><strong>Vulnerability Scanning:</strong><ul id="14dd17ff-5988-8086-ae37-ecdf9772ff9b" class="bulleted-list"><li style="list-style-type:circle">Perform security scans quarterly to identify and fix vulnerabilities in the application and infrastructure.</li></ul></li></ul><ul id="14dd17ff-5988-80cf-82fb-f40487aedb31" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Response:</strong><ul id="14dd17ff-5988-8004-b986-eae5401bf72d" class="bulleted-list"><li style="list-style-type:circle">Maintain an incident response plan and practice it biannually to handle security breaches effectively.</li></ul></li></ul><hr id="14dd17ff-5988-802f-a891-f4705de2e39d"/><h2 id="14dd17ff-5988-801c-af57-dddd9013b559" class=""><strong>5. Update &amp; Upgrade Procedures</strong></h2><h3 id="14dd17ff-5988-80b7-b2da-c43c6bf3fb54" class=""><strong>5.1 Frontend Upgrades</strong></h3><ol type="1" id="14dd17ff-5988-8027-889b-fd2a0d099980" class="numbered-list" start="1"><li>Clone the production codebase into a staging environment.</li></ol><ol type="1" id="14dd17ff-5988-802e-8e7f-fabb7e4f2079" class="numbered-list" start="2"><li>Update AngularJS and Material UI to the latest stable versions.</li></ol><ol type="1" id="14dd17ff-5988-80e7-bec1-c3ca1c856a10" class="numbered-list" start="3"><li>Test all UI functionalities and APIs in staging before deploying to production.</li></ol><h3 id="14dd17ff-5988-8085-9daf-cbb62814d768" class=""><strong>5.2 Backend Updates</strong></h3><ol type="1" id="14dd17ff-5988-809f-afab-f0f884868942" class="numbered-list" start="1"><li>Apply Python Flask and dependency updates in a staging environment.</li></ol><ol type="1" id="14dd17ff-5988-801f-9a3a-cbff3f1a043a" class="numbered-list" start="2"><li>Run regression tests to validate API functionality.</li></ol><ol type="1" id="14dd17ff-5988-8077-99db-c108ef87da01" class="numbered-list" start="3"><li>Deploy updates during off-peak hours to minimize disruptions.</li></ol><h3 id="14dd17ff-5988-80bc-b494-d3759fac26f9" class=""><strong>5.3 Database Migration</strong></h3><ol type="1" id="14dd17ff-5988-80d8-b427-d72ef70cddb0" class="numbered-list" start="1"><li>Export the database schema and data as a backup.</li></ol><ol type="1" id="14dd17ff-5988-80fc-865b-dad6ecccce4a" class="numbered-list" start="2"><li>Test schema changes or updates in a staging environment.</li></ol><ol type="1" id="14dd17ff-5988-80bd-b7ae-fed84eabc705" class="numbered-list" start="3"><li>Apply the migration script to production during maintenance windows.</li></ol><hr id="14dd17ff-5988-8004-af8d-dbbe417a48b8"/><h2 id="14dd17ff-5988-80a4-bfce-cf16de92472a" class=""><strong>6. Documentation Updates</strong></h2><ul id="14dd17ff-5988-80ce-9147-df8535b27f26" class="bulleted-list"><li style="list-style-type:disc">Update technical and user documentation whenever features are added or modified.</li></ul><ul id="14dd17ff-5988-8003-931e-d6a7a21cd0f7" class="bulleted-list"><li style="list-style-type:disc">Maintain a changelog for every update to track changes across system versions.</li></ul><hr id="14dd17ff-5988-80a0-a44d-d82f9d0d6c0e"/><h1 id="14dd17ff-5988-8017-b8eb-e464e3d0672a" class=""><strong>Future Enhancements</strong></h1><ol type="1" id="14dd17ff-5988-80a4-8e79-d8d21b34492b" class="numbered-list" start="1"><li><strong>Mobile Accessibility</strong><ul id="14dd17ff-5988-80c0-bd98-c41b8c76559a" class="bulleted-list"><li style="list-style-type:disc">Develop a mobile application to allow employees and managers to use the system on their smartphones.</li></ul><ul id="14dd17ff-5988-80ca-8a1c-c162142952b1" class="bulleted-list"><li style="list-style-type:disc">Enable push notifications for reminders, such as clocking in or reviewing payroll.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-8044-a633-eb36accb5667" class="numbered-list" start="2"><li><strong>Analytics and Reporting</strong><ul id="14dd17ff-5988-8064-850e-eab7cb81b3de" class="bulleted-list"><li style="list-style-type:disc">Introduce advanced analytics to provide insights into employee attendance trends and productivity.</li></ul><ul id="14dd17ff-5988-80bd-982b-d0c3ee739fc8" class="bulleted-list"><li style="list-style-type:disc">Generate customizable reports for managers to streamline decision-making.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-802f-a1b4-c0a9cc9329ed" class="numbered-list" start="3"><li><strong>Integration with HR Systems</strong><ul id="14dd17ff-5988-8051-a678-e01f48b0152a" class="bulleted-list"><li style="list-style-type:disc">Integrate with existing HR software for seamless data transfer and enhanced payroll processing.</li></ul><ul id="14dd17ff-5988-80c7-be23-dd24fb1ef5cd" class="bulleted-list"><li style="list-style-type:disc">Automate benefits calculations based on attendance data.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-80d4-96e5-de87928613f6" class="numbered-list" start="4"><li><strong>Biometric Support</strong><ul id="14dd17ff-5988-803b-a3cd-cb93b6c1770b" class="bulleted-list"><li style="list-style-type:disc">Enhance badge scanning with biometric options like fingerprint or facial recognition for added security.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-80cb-a49c-f7e1d7bdb5eb" class="numbered-list" start="5"><li><strong>Multilingual Support</strong><ul id="14dd17ff-5988-807c-9f14-dab365e42da6" class="bulleted-list"><li style="list-style-type:disc">Provide language options to cater to a diverse workforce and improve accessibility.</li></ul></li></ol><hr id="14dd17ff-5988-80f7-a3d4-ef3834ea4f22"/><h1 id="14dd17ff-5988-80f8-accc-cb16d0032d35" class=""><strong>Lessons Learned</strong></h1><ol type="1" id="14dd17ff-5988-80f7-85b6-ed93670e2604" class="numbered-list" start="1"><li><strong>User-Centric Design Matters</strong><ul id="14dd17ff-5988-8090-933c-e7e0314f4b27" class="bulleted-list"><li style="list-style-type:disc">Iterative feedback from employees and managers was crucial for refining the interface. Simple and intuitive design significantly improved adoption rates.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-80e8-948a-e51f67ff2dd3" class="numbered-list" start="2"><li><strong>Communication with Non-Technical Users</strong><ul id="14dd17ff-5988-80c0-9bdb-df80bf8f739a" class="bulleted-list"><li style="list-style-type:disc">Explaining technical concepts and gathering feedback from non-technical users was a challenge but helped bridge the gap between user needs and technical implementation.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-8084-83e7-dc77a588f050" class="numbered-list" start="3"><li><strong>Importance of Scalability</strong><ul id="14dd17ff-5988-8005-982d-e82f78055932" class="bulleted-list"><li style="list-style-type:disc">While the system was designed for the current scale, planning for future growth could have been emphasized more during initial development.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-8023-a2b4-fc2df10c8b48" class="numbered-list" start="4"><li><strong>Team Collaboration</strong><ul id="14dd17ff-5988-80a3-a259-c0fa30233e98" class="bulleted-list"><li style="list-style-type:disc">Dividing work between frontend, backend, and database development fostered efficiency, but regular sync-ups were necessary to align on dependencies and integrations.</li></ul></li></ol><ol type="1" id="14dd17ff-5988-80ab-99c2-d640f6ebaeff" class="numbered-list" start="5"><li><strong>Proactive Maintenance Planning</strong><ul id="14dd17ff-5988-80bd-a03f-dbe877d4930b" class="bulleted-list"><li style="list-style-type:disc">Incorporating automated testing and robust CI/CD pipelines from the beginning helped streamline deployments and minimize downtime.</li></ul></li></ol><hr id="14dd17ff-5988-802f-917a-ec73a0d93cc5"/><h1 id="14dd17ff-5988-80e0-a1e4-f12b106c0a55" class=""><strong>Impact</strong></h1><ul id="14dd17ff-5988-8049-8f91-d13d566a9164" class="bulleted-list"><li style="list-style-type:disc"><strong>Efficiency Gains:</strong><ul id="14dd17ff-5988-8039-bb8c-eb846f530cee" class="bulleted-list"><li style="list-style-type:circle">Reduced clock-in/out time by approximately 30%.</li></ul><ul id="14dd17ff-5988-8007-8d81-df5b34a3aa63" class="bulleted-list"><li style="list-style-type:circle">Improved payroll generation by an estimated 25%.</li></ul></li></ul><ul id="14dd17ff-5988-8072-924f-c415b5ce79d8" class="bulleted-list"><li style="list-style-type:disc"><strong>Enhanced Employee Satisfaction:</strong><ul id="14dd17ff-5988-8077-81dd-e830d9ae121d" class="bulleted-list"><li style="list-style-type:circle">Employees appreciated the simplicity of badge scanning and error-free time tracking.</li></ul><ul id="14dd17ff-5988-80dc-b4d9-ea156d885687" class="bulleted-list"><li style="list-style-type:circle">Managers benefited from the streamlined payroll process and improved oversight of employee attendance.</li></ul></li></ul><ul id="14dd17ff-5988-80c4-a70b-db0281a32517" class="bulleted-list"><li style="list-style-type:disc"><strong>Operational Improvements:</strong><ul id="14dd17ff-5988-8022-8bc2-e73f7d1e9c10" class="bulleted-list"><li style="list-style-type:circle">Enabled real-time tracking of attendance, reducing manual errors and delays.</li></ul><ul id="14dd17ff-5988-8011-9d47-e42ca0314cce" class="bulleted-list"><li style="list-style-type:circle">Simplified workflows, freeing up managers to focus on higher-priority tasks.</li></ul></li></ul><hr id="14dd17ff-5988-80a4-93b3-cdd14ac0bc92"/><h1 id="14dd17ff-5988-8024-aa82-fdbd2c779d45" class=""><strong>Conclusion</strong></h1><p id="14dd17ff-5988-80eb-ab97-d6e629bfc762" class="">The <strong>Timetracker for Assembly Employees</strong> project successfully addressed critical operational challenges by automating attendance tracking and payroll management. By simplifying workflows and providing a user-friendly interface, the system significantly improved efficiency and satisfaction among employees and managers.</p><p id="14dd17ff-5988-80bf-8a76-e9a9f63408b4" class="">This project demonstrated the power of user-centric design, iterative feedback, and cross-functional collaboration in creating impactful solutions. Future enhancements such as mobile accessibility and integration with HR systems will further expand the system&#x27;s capabilities, ensuring it continues to deliver value as the organization grows.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
